@@ -21,6 +21,20 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules/recharts') || id.includes('node_modules/d3-')) {
+            return 'vendor-charts'
+          }
+          if (id.includes('node_modules/@stellar')) {
+            return 'vendor-stellar'
+          }
+        },
+      },
+    },
+  },
   server: {
     port: 5173,
     proxy: {
